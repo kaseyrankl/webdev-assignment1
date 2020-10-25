@@ -8,8 +8,7 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <style>
         html,
-        body,
-        #map {
+        body {
             width: 100%;
             min-height: 100%;
         }
@@ -60,13 +59,13 @@
         </h4>
     </header>
 
-    <div id="map" style="width: 100vw; height: 100vw" top:60px></div>
+    <div id="map" style="width: 100vw; height: 100vw"></div>
     <!-- Our web map and content will go here -->
     <script>
         // Create variable to hold map element, give initial settings to map
         var map = L.map('map', {
-            center: [42.362432, -71.086086],
-            zoom: 14
+            center: [41.9028, 12.4964],
+            zoom: 10
         });
         // Add OpenStreetMap tile layer to map element
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
