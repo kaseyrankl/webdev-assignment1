@@ -73,6 +73,13 @@
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap'
         }).addTo(map);
+
+        //add airport icon 
+        var airportIcon = L.icon({
+            iconUrl: 'airport.png',
+            iconSize: [40, 50]
+        });
+
         // create airports layer from csv file
         var airportsLayer = omnivore.csv('airports.csv', null, templateLayer).addTo(map);
     </script>
