@@ -80,6 +80,14 @@
             iconSize: [40, 50]
         });
 
+        //add airport icon to marker
+        var templateLayer = L.geoJson(null, {
+            pointToLayer: function(feature, latlong) {
+                return L.marker(latlong, {
+                    icon: airportIcon
+                });
+            }
+        })
         // create airports layer from csv file
         var airportsLayer = omnivore.csv('airports.csv', null, templateLayer).addTo(map);
     </script>
