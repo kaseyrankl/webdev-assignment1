@@ -95,5 +95,15 @@
         }).addTo(map);
         // Add popup for apartment building 
         myApartmentComplexArea.bindPopup("<h3>Summit Ridge Luxury Apartments</h3><p>Hermantown, MN<br>I pay too much money to live here.</P>");
+        //Add my drive to get coffee
+        var myDrive = L.polyline([
+            [46.805833, -92.114167],
+            [46.805, -92.1125],
+            [46.799444, -92.116111],
+            [46.800278, -92.131667]
+        ], {
+            color: 'red',
+            weight: 3
+        }).addTo(map);
     </script>
 </body></html>
