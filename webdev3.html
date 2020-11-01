@@ -81,5 +81,17 @@
            attribution: '© OpenStreetMap'
          }).addTo(map);
          */
+        // add my apartment complex 
+        var myApartmentComplexArea = L.polygon([
+            [46.805833, -92.114167],
+            [46.807778, -92.115833],
+            [46.809167, -92.119444],
+            [46.807778, -92.120833],
+            [46.805833, -92.12],
+            [46.805833, -92.114167]
+        ], {
+            color: 'blue',
+            weight: 4
+        }).addTo(map);
     </script>
 </body></html>
