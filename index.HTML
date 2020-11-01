@@ -50,6 +50,13 @@
         myArea.bindPopup("<h3>MIT Campus</h3><p>Cambridge, MA<br>Information about MIT.</P>");
         // Create an Empty Popup
         var popup = L.popup();
-        
+        // Write functin to set Properties of the Popup
+        function onMapClick(e) {
+            popup
+                .setLatLng(e.latlng)
+                .setContent("You clicked the map at"+ e.latlng.toString())
+                .openOn(map);
+            
+        }
     </script>
 </body></html>
