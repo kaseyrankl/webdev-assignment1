@@ -61,6 +61,7 @@
 
     <div id="map" style="width: 100vw; height: 100vw"></div>
     <!-- Our web map and content will go here -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
     <script>
         // Create variable to hold map element, give initial settings to map
         var map = L.map('map', {
@@ -71,5 +72,29 @@
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap'
         }).addTo(map);
+                onEachFeature: function(feature, layer) {
+                    var thirdPartyPct = calculateThirdPartyPct(feature);
+                    // show name of precinct and third party percent in popup
+                    layer.bindPopup(
+                        "<h3>" + feature.properties.PCTNAME + "</h3>" +
+                        "<p>Third Party Vote: " + thirdPartyPct + "%</p>"
+                    );
+                }
+            }).addTo(map);
+        });
+
+        // a function that takes a feature and returns the percent of the vote
+        // that doesn't belong to Republican or Democrat (ie. Third Party)
+        function calculateThirdPartyPct(feature) {
+            var demVote = feature.properties.USPRSDFL;
+            var repVote = feature.properties.USPRSR;
+            var totalVote = feature.properties.USPRSTOTAL;
+            // third party vote is whatever is left over from dem and rep vote
+            var thirdPartyVote = (totalVote - demVote - repVote);
+            // calculate as a percent of the total vote
+            var thirdPartyPct = Math.round(thirdPartyVote / totalVote * 100);
+            // return the third party percent for this feature
+            return thirdPartyPct;
+        }
     </script>
 </body></html>
