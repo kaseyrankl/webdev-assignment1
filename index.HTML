@@ -63,6 +63,13 @@
         }
         //Listen for a click event on the Map element
         map.on('click', onMapClick);
-
+        // add coffee cafes
+        $.getJSON("data/coffee_cafes.geojson", function(coffeeData) {
+            L.geoJson(coffeeData, {
+                onEachFeature: function(feature, layer) {
+                    layer.bindPopup(feature.properties.name);
+                }
+            }).addTo(map);
+        });
     </script>
 </body></html>
