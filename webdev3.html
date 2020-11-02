@@ -46,6 +46,8 @@
 </head>
 
 <body>
+    
+    //from https://docs.mapbox.com/mapbox-gl-js/example/mouse-position/
     <style type="text/css">
         #info {
             display: block;
@@ -132,6 +134,8 @@
 
         //add popup for my work
         myWork.bindPopup("<h3>Trailfitters</h3><p>I work at Trailfitters in the Fitger's Brewhouse building.<a href='https://trailfitters.com/'>Trailfitters.com</p>");
+        
+        //https://docs.mapbox.com/mapbox-gl-js/example/mouse-position/
         map.on('mousemove', function(e) {
             document.getElementById('info').innerHTML =
                 // e.point is the x, y coordinates of the mousemove event relative
