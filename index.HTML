@@ -42,5 +42,23 @@
             color: 'blue',
             weight: 4
         }).addTo(map);
+        // Bind popup to Data Point object 
+        myDataPoint.bindPopup("<h3>Kendall Square</h3><p>Cambridge, MA<br>Information about Kendall Square.</P>");
+        //Bind popup to line object
+        myDataLine.bindPopup("<h3>Mass Ave Bridge</h3><p>Cambridge, MA<br>Information about Mass Ave Bridge.</P>");
+        // Bind popup to area object 
+        myArea.bindPopup("<h3>MIT Campus</h3><p>Cambridge, MA<br>Information about MIT.</P>");
+        // Create an Empty Popup
+        var popup = L.popup();
+        // Write functin to set Properties of the Popup
+        function onMapClick(e) {
+            popup
+                .setLatLng(e.latlng)
+                .setContent("You clicked the map at"+ e.latlng.toString())
+                .openOn(map);
+            
+        }
+        //Listen for a click event on the Map element
+        map.on('click', onMapClick);
     </script>
 </body></html>

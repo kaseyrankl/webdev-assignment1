@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Leaflet Map</title>
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <style>
+        html,
+        /* source for full-screen style https://leafletjs.com/examples/mobile/
+        */
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        #map {
+            top: 60px;
+        }
+
+        #header {
+            top: 0;
+            width: 100%;
+            z-index: 9999999;
+            position: fixed;
+            background-color: cadetblue;
+            color: aliceblue;
+            font-family: monospace;
+            padding-left: 20px;
+
+        }
+
+        #header * {
+            display: inline-block;
+            margin-right: 20px
+        }
+    </style>
+
+</head>
+
+<body>
+    
+    //from https://docs.mapbox.com/mapbox-gl-js/example/mouse-position/
+    <style type="text/css">
+        #info {
+            display: block;
+            position: relative;
+            margin: 1000px auto;
+            width: 50%;
+            padding: 100px;
+            border: none;
+            border-radius: 3px;
+            font-size: 12px;
+            text-align: center;
+            color: #222;
+            background: #fff;
+        }
+    </style>
+    <!--header with map title, class, and my name with link to Leaftlet-->
+    <header id="header">
+        <h1>
+            Leaflet Map
+        </h1>
+        <h3>
+            <a href="https://leafletjs.com/">
+                I built this using Leaflet
+            </a>
+        </h3>
+        <h4>
+            Kasey Rankl | GIS 4533 | Fall 2020
+
+        </h4>
+    </header>
+    <div id="map" style="width: 100vw; height: 100vw"></div>
+    <pre id="info"></pre>
+    <!-- Our web map and content will go here -->
+    <script>
+        // Create variable to hold map element, give initial settings to map
+        var map = L.map('map', {
+            center: [46.667, -92.1005],
+            zoom: 12
+        });
+        var Stamen_Watercolor = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
+            attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            subdomains: 'abcd',
+            minZoom: 1,
+            maxZoom: 16,
+            ext: 'jpg'
+        }).addTo(map);
+        // Add OpenStreetMap tile layer to map element
+        /*L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+           attribution: '© OpenStreetMap'
+         }).addTo(map);
+         */
+
+        // add my apartment complex 
+        var myApartmentComplexArea = L.polygon([
+            [46.805833, -92.114167],
+            [46.807778, -92.115833],
+            [46.809167, -92.119444],
+            [46.807778, -92.120833],
+            [46.805833, -92.12],
+            [46.805833, -92.114167]
+        ], {
+            color: 'blue',
+            weight: 4
+        }).addTo(map);
+
+        // Add popup for apartment building 
+        myApartmentComplexArea.bindPopup("<h3>Summit Ridge Luxury Apartments</h3><p>Hermantown, MN<br>I pay too much money to live here.</P>");
+        //Add my drive to get coffee
+        var myDrive = L.polyline([
+            [46.805833, -92.114167],
+            [46.805, -92.1125],
+            [46.799444, -92.116111],
+            [46.800278, -92.131667]
+        ], {
+            color: 'red',
+            weight: 3
+        }).addTo(map);
+
+        //Popup for my drive 
+        myDrive.bindPopup("<h3>I Need Coffee</h3><p>This is the drive from my apartment to the nearest coffee place <a href='https://www.cariboucoffee.com/'>https://www.cariboucoffee.com/</p>");
+
+        //add point for my work
+        var myWork = L.marker([46.792778, -92.090278]).addTo(map);
+
+        //add popup for my work
+        myWork.bindPopup("<h3>Trailfitters</h3><p>I work at Trailfitters in the Fitger's Brewhouse building.<a href='https://trailfitters.com/'>Trailfitters.com</p>");
+        
+        //https://docs.mapbox.com/mapbox-gl-js/example/mouse-position/
+        map.on('mousemove', function(e) {
+            document.getElementById('info').innerHTML =
+                // e.point is the x, y coordinates of the mousemove event relative
+                // to the top-left corner of the map
+                JSON.stringify(e.point) +
+                '<br/>' +
+                // e.lngLat is the longitude, latitude geographical position of the event
+                JSON.stringify(e.lngLat.wrap());
+        });
+    </script>
+</body></html>
