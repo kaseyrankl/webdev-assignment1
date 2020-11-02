@@ -72,6 +72,50 @@
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap'
         }).addTo(map);
+
+        // load GeoJSON from an external file        
+        $.getJSON("data/duluth_precincts_WGS84.geojson", function(data) {
+
+            // add GeoJSON layer to the map once the file is loaded
+            L.geoJson(data, {
+                style: function(feature) {
+
+                    // calculate third party percent of vote using function
+                    var thirdPartyPct = calculateThirdPartyPct(feature);
+
+                    // assign colors from the ColorBrewer yellow-green scale
+                    var fill;
+                    // equal interval classification
+                    // 7% or less
+                    if (thirdPartyPct <= 7) {
+                        fill = '#f7fcb9';
+                    }
+                    // 11% or less
+                    else if (thirdPartyPct <= 11) {
+                        fill = '#addd8e';
+                    }
+                    // 12% or more
+                    else {
+                        fill = '#31a354';
+                    }
+
+                    // FIXME: remove existing symbolization and create a diverging
+                    // symbology based the democrat or republic vote as a percent
+                    // of the total vote.
+                    // Use Colorbrewer's 5-class Red-Blue colors for this
+                    // http://colorbrewer2.org/#type=diverging&scheme=RdBu&n=5
+
+                    // return style specification
+                    return {
+                        color: '#636363',
+                        weight: 2,
+                        fillColor: fill,
+                        fillOpacity: 0.7
+                    }
+                },
+
+                // do something to each feature
+                // in this case create a popup
                 onEachFeature: function(feature, layer) {
                     var thirdPartyPct = calculateThirdPartyPct(feature);
                     // show name of precinct and third party percent in popup
