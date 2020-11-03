@@ -131,10 +131,10 @@
             var demVote = feature.properties.USPRSDFL;
             var repVote = feature.properties.USPRSR;
             var totalVote = feature.properties.USPRSTOTAL;
-            // third party vote is whatever is left over from dem and rep vote
-            var thirdPartyVote = (totalVote - demVote - repVote);
-            // calculate as a percent of the total vote
-            var thirdPartyPct = Math.round(thirdPartyVote / totalVote * 100);
+            // calculate percent democrate 
+            var demPercent = Math.round(demVote/totalVote*100);
+            //calculate percent rep
+            var repPercent = Math.round(repVote/totalVote*100);
             // return the third party percent for this feature
             return thirdPartyPct;
         }
