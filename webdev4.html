@@ -80,8 +80,8 @@
             L.geoJson(data, {
                 style: function(feature) {
 
-                    // calculate third party percent of vote using function
-                    var thirdPartyPct = calculateThirdPartyPct(feature);
+                    // calculate party percent of vote using function
+                    var votePercents = calculatePartyPct(feature);
 
                     // assign colors from the ColorBrewer yellow-green scale
                     var fill;
