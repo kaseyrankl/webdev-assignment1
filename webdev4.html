@@ -73,15 +73,15 @@
             attribution: '© OpenStreetMap'
         }).addTo(map);
         */
-        
+
         //add simple basemap
-var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}', {
-	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-	subdomains: 'abcd',
-	minZoom: 0,
-	maxZoom: 20,
-	ext: 'png'
-}) .addTo(map);
+        var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}', {
+            attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            subdomains: 'abcd',
+            minZoom: 0,
+            maxZoom: 20,
+            ext: 'png'
+        }).addTo(map);
 
         // load GeoJSON from an external file        
         $.getJSON("data/duluth_precincts_WGS84.geojson.txt", function(data) {
@@ -96,9 +96,9 @@ var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/to
                     // assign colors from the ColorBrewer red/blue diverging scale
                     //percentage cutoffs from https://kristofj-umd.github.io/webdev-f19/assignments/webdev4.html
                     var fill;
-                   
+
                     // 35% or more republican
-                    if (votePercents.rep >=40) {
+                    if (votePercents.rep >= 40) {
                         fill = '#ca0020';
                     }
                     // 30% or more republican 
@@ -106,12 +106,12 @@ var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/to
                         fill = '#f4a582';
                     }
                     // fairly even
-                    else if (votePercents.rep >= 30 && votePercents.dem <= 65){
+                    else if (votePercents.rep >= 30 && votePercents.dem <= 65) {
                         fill = '#f7f7f7';
                     }
                     //65% or more democrat
-                    else if(votePercents.dem >=60 && votePercents.dem<=65){
-                        fill= '#92c5de'
+                    else if (votePercents.dem >= 60 && votePercents.dem <= 65) {
+                        fill = '#92c5de'
                     }
                     // 75% or more democrat
                     else {
@@ -140,7 +140,7 @@ var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/to
                     layer.bindPopup(
                         "<h3>" + feature.properties.PCTNAME + "</h3>" +
                         "<p>Democrat Vote: <span class='dem'>" + votePercents.dem + "%</span></p>" +
-                        "<p>Republican Vote: <span class='rep'>"+ votePercents.rep + "%</span></p>" 
+                        "<p>Republican Vote: <span class='rep'>" + votePercents.rep + "%</span></p>"
                     );
                 }
             }).addTo(map);
@@ -152,9 +152,9 @@ var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/to
             var repVote = feature.properties.USPRSR;
             var totalVote = feature.properties.USPRSTOTAL;
             // calculate percent democrate 
-            var demPercent = Math.round(demVote/totalVote*100);
+            var demPercent = Math.round(demVote / totalVote * 100);
             //calculate percent rep
-            var repPercent = Math.round(repVote/totalVote*100);
+            var repPercent = Math.round(repVote / totalVote * 100);
             // return voting percentages for each party based on https://kristofj-umd.github.io/webdev-f19/assignments/webdev4.html
             return {
                 rep: repPercent,
