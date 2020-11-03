@@ -124,11 +124,13 @@
                 // do something to each feature
                 // in this case create a popup
                 onEachFeature: function(feature, layer) {
-                    var thirdPartyPct = calculateThirdPartyPct(feature);
-                    // show name of precinct and third party percent in popup
+                    var votePercents = calculatePartyPct(feature);
+                    // show name of precinct and percent vote for rep and dem in popup 
+                    // help from https://kristofj-umd.github.io/webdev-f19/assignments/webdev4.html
                     layer.bindPopup(
                         "<h3>" + feature.properties.PCTNAME + "</h3>" +
-                        "<p>Third Party Vote: " + thirdPartyPct + "%</p>"
+                        "<p>Democrat Vote: <span class='dem'>" + votePercents.dem + "%</span></p>" +
+                        "<p>Republican Vote: <span class='rep'>"+ votePercents.rep + "%</span></p>" 
                     );
                 }
             }).addTo(map);
