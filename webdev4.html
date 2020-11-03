@@ -86,18 +86,26 @@
                     // assign colors from the ColorBrewer red/blue diverging scale
                     //percentage cutoffs from https://kristofj-umd.github.io/webdev-f19/assignments/webdev4.html
                     var fill;
-                    // equal interval classification
-                    // 7% or less
-                    if (thirdPartyPct <= 7) {
-                        fill = '#f7fcb9';
+                   
+                    // 35% or more republican
+                    if (votePercents.rep >=40) {
+                        fill = '#ca0020';
                     }
-                    // 11% or less
-                    else if (thirdPartyPct <= 11) {
-                        fill = '#addd8e';
+                    // 30% or more republican 
+                    else if (votePercents.rep >= 35) {
+                        fill = '#f4a582';
                     }
-                    // 12% or more
+                    // fairly even
+                    else if (votePercents.rep >= 30 && votePercents.dem <= 65){
+                        fill = '#f7f7f7';
+                    }
+                    //65% or more democrat
+                    else if(votePercents.dem >=60 && votePercents.dem<=65){
+                        fill= '#92c5de'
+                    }
+                    // 75% or more democrat
                     else {
-                        fill = '#31a354';
+                        fill = '#057ab0'
                     }
 
 
