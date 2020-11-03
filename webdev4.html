@@ -125,8 +125,7 @@
             }).addTo(map);
         });
 
-        // a function that takes a feature and returns the percent of the vote
-        // that doesn't belong to Republican or Democrat (ie. Third Party)
+        // a function that takes calculates percent democrat and republican 
         function calculatePartyPct(feature) {
             var demVote = feature.properties.USPRSDFL;
             var repVote = feature.properties.USPRSR;
