@@ -68,10 +68,11 @@
             center: [46.567, -92.1005],
             zoom: 11
         });
-        // Add OpenStreetMap tile layer to map element
+        /* Add OpenStreetMap tile layer to map element
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap'
         }).addTo(map);
+        */
 
         // load GeoJSON from an external file        
         $.getJSON("data/duluth_precincts_WGS84.geojson.txt", function(data) {
