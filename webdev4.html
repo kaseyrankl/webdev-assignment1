@@ -127,7 +127,7 @@
 
         // a function that takes a feature and returns the percent of the vote
         // that doesn't belong to Republican or Democrat (ie. Third Party)
-        function calculateThirdPartyPct(feature) {
+        function calculatePartyPct(feature) {
             var demVote = feature.properties.USPRSDFL;
             var repVote = feature.properties.USPRSR;
             var totalVote = feature.properties.USPRSTOTAL;
