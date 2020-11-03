@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Leaflet Map</title>
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <style>
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        #map {
+            top: 60px;
+        }
+
+        #header {
+            top: 0;
+            width: 100%;
+            z-index: 9999999;
+            position: fixed;
+            background-color: cadetblue;
+            color: aliceblue;
+            font-family: monospace;
+            padding-left: 20px;
+
+        }
+
+        #header * {
+            display: inline-block;
+            margin-right: 20px
+        }
+    </style>
+
+</head>
+
+<body>
+    <!--header with map title, class, and my name with link to Leaftlet-->
+    <header id="header">
+        <h1>
+            Voter Precincts in Duluth
+        </h1>
+        <h3>
+            <a href="https://leafletjs.com/">
+                I built this using Leaflet
+            </a>
+        </h3>
+        <h4>
+            Kasey Rankl | GIS 4533 | Fall 2020
+
+        </h4>
+    </header>
+
+    <div id="map" style="width: 100vw; height: 100vw"></div>
+    <!-- Our web map and content will go here -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script>
+        // Create variable to hold map element, give initial settings to map
+        var map = L.map('map', {
+            center: [46.567, -92.1005],
+            zoom: 11
+        });
+        /* Add OpenStreetMap tile layer to map element
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+        */
+
+        //add simple basemap
+        var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}', {
+            attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            subdomains: 'abcd',
+            minZoom: 0,
+            maxZoom: 20,
+            ext: 'png'
+        }).addTo(map);
+
+        // load GeoJSON from an external file        
+        $.getJSON("data/duluth_precincts_WGS84.geojson.txt", function(data) {
+
+            // add GeoJSON layer to the map once the file is loaded
+            L.geoJson(data, {
+                style: function(feature) {
+
+                    // calculate party percent of vote using function
+                    var votePercents = calculatePartyPct(feature);
+
+                    // assign colors from the ColorBrewer red/blue diverging scale
+                    //percentage cutoffs from https://kristofj-umd.github.io/webdev-f19/assignments/webdev4.html
+                    var fill;
+
+                    // 35% or more republican
+                    if (votePercents.rep >= 40) {
+                        fill = '#ca0020';
+                    }
+                    // 30% or more republican 
+                    else if (votePercents.rep >= 35) {
+                        fill = '#f4a582';
+                    }
+                    // fairly even
+                    else if (votePercents.rep >= 30 && votePercents.dem <= 65) {
+                        fill = '#f7f7f7';
+                    }
+                    //65% or more democrat
+                    else if (votePercents.dem >= 60 && votePercents.dem <= 65) {
+                        fill = '#92c5de'
+                    }
+                    // 75% or more democrat
+                    else {
+                        fill = '#057ab0'
+                    }
+
+
+                    // Use Colorbrewer's 5-class Red-Blue colors for this
+                    // http://colorbrewer2.org/#type=diverging&scheme=RdBu&n=5
+
+                    // return style specification
+                    return {
+                        color: '#636363',
+                        weight: 2,
+                        fillColor: fill,
+                        fillOpacity: 0.7
+                    }
+                },
+
+                // do something to each feature
+                // in this case create a popup
+                onEachFeature: function(feature, layer) {
+                    var votePercents = calculatePartyPct(feature);
+                    // show name of precinct and percent vote for rep and dem in popup 
+                    // help from https://kristofj-umd.github.io/webdev-f19/assignments/webdev4.html
+                    layer.bindPopup(
+                        "<h3>" + feature.properties.PCTNAME + "</h3>" +
+                        "<p>Democrat Vote: <span class='dem'>" + votePercents.dem + "%</span></p>" +
+                        "<p>Republican Vote: <span class='rep'>" + votePercents.rep + "%</span></p>"
+                    );
+                }
+            }).addTo(map);
+        });
+
+        // a function that takes calculates percent democrat and republican 
+        function calculatePartyPct(feature) {
+            var demVote = feature.properties.USPRSDFL;
+            var repVote = feature.properties.USPRSR;
+            var totalVote = feature.properties.USPRSTOTAL;
+            // calculate percent democrate 
+            var demPercent = Math.round(demVote / totalVote * 100);
+            //calculate percent rep
+            var repPercent = Math.round(repVote / totalVote * 100);
+            // return voting percentages for each party based on https://kristofj-umd.github.io/webdev-f19/assignments/webdev4.html
+            return {
+                rep: repPercent,
+                dem: demPercent
+            };
+        }
+    </script>
+</body></html>
