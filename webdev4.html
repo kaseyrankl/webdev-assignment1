@@ -134,8 +134,11 @@
             var demPercent = Math.round(demVote/totalVote*100);
             //calculate percent rep
             var repPercent = Math.round(repVote/totalVote*100);
-            // return the third party percent for this feature
-            return thirdPartyPct;
+            // return voting percentages for each party based on https://kristofj-umd.github.io/webdev-f19/assignments/webdev4.html
+            return {
+                rep: repPercent,
+                dem: demPercent
+            };
         }
     </script>
 </body></html>
