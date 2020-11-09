@@ -1,6 +1,5 @@
 <!--
-  An example displaying a hosted feature layer
-  ref: https://esri.github.io/esri-leaflet/tutorials/working-with-feature-layers.html
+A map showing springs in St. Louis county. Created from template:https://raw.githubusercontent.com/kristofj-umd/webdev-unit/master/webdev5-examples/feature-service.html
  -->
 
 <!doctype html>
@@ -41,15 +40,15 @@
             center: [47.7395, -92.3624],
             zoom: 8
         });
-        // add basemap
+        // add basemap 
         const esriStreets = L.esri.basemapLayer('Gray').addTo(map);
 
-        // add hosted feature layer
+        // add hosted feature layerfor springs
         const springsLayer = L.esri.featureLayer({
             url: 'https://services.arcgis.com/8df8p0NlLFEShl0r/arcgis/rest/services/springs/FeatureServer/0'
         }).addTo(map);
 
-        // add hosted feature layer
+        // add hosted feature layer for county boundaries
         const countyLayer = L.esri.featureLayer({
             url: 'https://services.arcgis.com/8df8p0NlLFEShl0r/arcgis/rest/services/St__Louis_County_boundary/FeatureServer/0'
         }).addTo(map);
