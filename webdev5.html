@@ -54,6 +54,8 @@
         // add hosted feature layer
         const springsLayer = L.esri.featureLayer({url: 'https://services.arcgis.com/8df8p0NlLFEShl0r/arcgis/rest/services/springs/FeatureServer/0'}).addTo(map);
 
+        // add hosted feature layer
+        const countyLayer = L.esri.featureLayer({url: 'https://services.arcgis.com/8df8p0NlLFEShl0r/arcgis/rest/services/St__Louis_County_boundary/FeatureServer/0'}).addTo(map);
         /* set up popup for earthquakes layer
         earthquakesLayer.bindPopup(function(evt) {
             return L.Util.template(
