@@ -54,7 +54,7 @@
         // add hosted feature layer
         const earthquakesLayer = L.esri.featureLayer({url: 'https://services.arcgis.com/8df8p0NlLFEShl0r/arcgis/rest/services/NaturalDisasters_Earthquakes/FeatureServer/0'}).addTo(map);
 
-        // set up popup for earthquakes layer
+        /* set up popup for earthquakes layer
         earthquakesLayer.bindPopup(function(evt) {
             return L.Util.template(
               '<table>'+
@@ -64,6 +64,7 @@
               '</table>',
               evt.feature.properties);
         });
+        */
     </script>
 </body>
 </html>
