@@ -56,17 +56,17 @@
 
         // add hosted feature layer
         const countyLayer = L.esri.featureLayer({url: 'https://services.arcgis.com/8df8p0NlLFEShl0r/arcgis/rest/services/St__Louis_County_boundary/FeatureServer/0'}).addTo(map);
-        /* set up popup for earthquakes layer
-        earthquakesLayer.bindPopup(function(evt) {
+        // set up popup for springs layer
+        springsLayer.bindPopup(function(evt) {
             return L.Util.template(
               '<table>'+
-                '<tr><td>LOCATION:</td><td>{LOCATION}</td></tr>'+
-                '<tr><td>YEAR:</td><td>{YEAR}</td></tr>'+
-                '<tr><td>MAGNITUDE:</td><td>{MAGNITUDE}</td></tr>'+
+                '<tr><td>COMMON NAME:</td><td>{name}</td></tr>'+
+                '<tr><td>FIELD CHECKED:</td><td>{field_checked}</td></tr>'+
+                '<tr><td>STATUS:</td><td>{status}</td></tr>'+
               '</table>',
               evt.feature.properties);
         });
-        */
+        
     </script>
 </body>
 </html>
